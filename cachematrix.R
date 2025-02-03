@@ -1,10 +1,19 @@
 ## Put comments here that give an overall description of what your
 ## functions do
-
+##function that is able to cache potentially time-consuming computations. For
+##example, taking the mean of a numeric vector is typically a fast
+##function that is able to cache potentially time-consuming computations.
+##For example, taking the mean of a numeric vector is typically a fast
+##operation. However, for a very long vector, it may take too long to
+##in a loop). If the contents of a vector are not changing, it may make
+##sense to cache the value of the mean so that when we need it again, it
+##can be looked up in the cache rather than recomputed. In this
+####language and how they can be manipulated to preserve state inside of an
+##R object.
+##the R language and how they can be manipulated to preserve state inside
+##of an R object.
 ## Write a short comment describing this function
-##makeCacheMatrix function: It initializes a matrix x and a cached inverse matrix inv. 
-##The set function updates the matrix x and clears the cached inverse, inv. 
-##The get function retrieves the matrix, and the setinverse and getinverse functions store and retrieve the cached inverse, respectively.
+##makeCacheMatrix: This function creates a special "matrix" object that can cache its inverse.
 makeCacheMatrix <- function(x = matrix()) {
          inv <- NULL
         set <- function(y) {
@@ -22,9 +31,10 @@ makeCacheMatrix <- function(x = matrix()) {
 
 
 ## Write a short comment describing this function
-##cacheSolve function: It first checks if the inverse is already cached by calling getinverse. 
-##If cached, it returns the inverse matrix with a message indicating that cached data is being used. 
-##If not cached, it calculates the inverse using the solve function and stores it with setinverse.
+##cacheSolve: This function computes the inverse of the special "matrix" returned by makeCacheMatrix above. 
+##If the inverse has already been calculated (and the matrix has not changed), then the cachesolve should retrieve the inverse from the cache.
+
+##Computing the inverse of a square matrix can be done with the solve function in R. For example, if X is a square invertible matrix, then solve(X) returns its inverse.
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
         inv <- x$getinverse()
